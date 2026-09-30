@@ -161,7 +161,10 @@ Sits above Journal entries, in the right-hand column on desktop and in the phone
 
 ## 6. Updating the live page later
 
-The tool is published with GitHub Pages from the `main` branch, `/docs` folder, using the repository `fifo-inventory-pipe`. After any change to the code:
+Live address: https://chongdaniel-hue.github.io/fifo-inventory-pipe/
+Repository: https://github.com/chongdaniel-hue/fifo-inventory-pipe
+
+The tool is published with GitHub Pages from the `main` branch, `/docs` folder. After any change to the code:
 
 1. Rebuild: `npm run build` (this makes `dist/index.html`).
 2. Copy it: `dist/index.html` to `docs/index.html` (replace the old file).
@@ -169,6 +172,8 @@ The tool is published with GitHub Pages from the `main` branch, `/docs` folder, 
 4. Wait a minute or two, then refresh the live page (a hard refresh, Ctrl+Shift+R, if the old version still shows).
 
 Only `docs/index.html` is served. Everything else in the repository is just the source.
+
+If git says "dubious ownership" when you run it on the E: drive, tell Claude, or run the command it prints once (it marks this folder as safe).
 
 ## 7. Out of scope (don't add)
 
