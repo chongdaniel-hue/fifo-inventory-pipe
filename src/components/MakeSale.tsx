@@ -21,10 +21,12 @@ function joinOptions(options: number[]): string {
 }
 
 export function MakeSale({
-  batches, sales, error, onError, onSell, onUndo,
+  batches, sales, numbers, error, onError, onSell, onUndo,
 }: {
   batches: Batch[]
   sales: Sale[]
+  numbers: Map<number, number>
+
   error: string
   onError: (message: string) => void
   onSell: (s: NewSale) => void
@@ -107,7 +109,7 @@ export function MakeSale({
                 <ul className="m-0 mt-2 list-none space-y-1 p-0">
                   {s.sold.map(b => (
                     <li key={b.id}>
-                      {b.quantity} units from the {formatDate(b.dateMs)} batch · cost ${formatAmount(b.totalCost)}
+                      {b.quantity} units from Batch {numbers.get(b.id)} ({formatDate(b.dateMs)}) · cost ${formatAmount(b.totalCost)}
                     </li>
                   ))}
                 </ul>

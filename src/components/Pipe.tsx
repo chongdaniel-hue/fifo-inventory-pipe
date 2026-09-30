@@ -2,7 +2,11 @@ import { Fragment } from 'react'
 import { formatAmount, formatDate } from '../lib/format'
 import { sortForPipe, type Batch } from '../types'
 
-export function Pipe({ batches, onRemove }: { batches: Batch[]; onRemove: (id: number) => void }) {
+export function Pipe({ batches, numbers, onRemove }: {
+  batches: Batch[]
+  numbers: Map<number, number>
+  onRemove: (id: number) => void
+}) {
   const ordered = sortForPipe(batches)
   return (
     <section aria-label="Inventory pipe" className="flex flex-col items-center gap-3">
@@ -27,7 +31,7 @@ export function Pipe({ batches, onRemove }: { batches: Batch[]; onRemove: (id: n
                     >
                       ✕
                     </button>
-                    <p className="font-bold">{b.quantity} units</p>
+                    <p className="font-bold">Batch {numbers.get(b.id)} · {b.quantity} units</p>
                     <p>{formatDate(b.dateMs)}</p>
                     <p>Total cost: ${formatAmount(b.totalCost)}</p>
                     {oldest && (

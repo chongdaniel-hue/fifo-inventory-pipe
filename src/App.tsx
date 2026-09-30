@@ -5,6 +5,7 @@ import { Journal } from './components/Journal'
 import { MakeSale, type NewSale } from './components/MakeSale'
 import { Pipe } from './components/Pipe'
 import { Summary } from './components/Summary'
+import { batchNumbers } from './lib/numbering'
 import type { Batch, Sale } from './types'
 
 export default function App() {
@@ -27,6 +28,9 @@ export default function App() {
     ...sales.flatMap(s => [s.dateMs, ...s.sold.map(b => b.dateMs)]),
   ]
   const latestDateMs = dates.length ? Math.max(...dates) : null
+
+  // Batch numbers count every purchase, sold or not, so a batch keeps its number after a sale.
+  const numbers = batchNumbers([...batches, ...sales.flatMap(s => s.sold)])
 
   function addBatch(p: NewPurchase) {
     setBatches(prev => [...prev, { id: nextId, ...p }])
@@ -78,19 +82,19 @@ export default function App() {
       {/* Narrow screens: one column in the brief's order (order-N). Wide screens: three columns. */}
       <div className="flex flex-col gap-10 lg:grid lg:grid-cols-3 lg:items-start lg:gap-12">
         <div className="contents">
-          <div className="order-2 lg:order-none"><Pipe batches={batches} onRemove={removeBatch} /></div>
+          <div className="order-2 lg:order-none"><Pipe batches={batches} numbers={numbers} onRemove={removeBatch} /></div>
         </div>
         <div className="contents lg:flex lg:flex-col lg:gap-12">
           <div className="order-1 lg:order-none">
             <AddPurchase key={resetCount} latestDateMs={latestDateMs} error={addError} onError={setAddError} onAdd={addBatch} />
           </div>
           <div className="order-3 lg:order-none">
-            <MakeSale key={resetCount} batches={batches} sales={sales} error={saleError} onError={setSaleError} onSell={sell} onUndo={undoLastSale} />
+            <MakeSale key={resetCount} batches={batches} sales={sales} numbers={numbers} error={saleError} onError={setSaleError} onSell={sell} onUndo={undoLastSale} />
           </div>
         </div>
         <div className="contents lg:flex lg:flex-col lg:gap-12">
           <div className="order-4 lg:order-none"><Summary batches={batches} sales={sales} /></div>
-          <div className="order-5 lg:order-none"><Journal batches={batches} sales={sales} /></div>
+          <div className="order-5 lg:order-none"><Journal batches={batches} sales={sales} numbers={numbers} /></div>
         </div>
       </div>
     </div>

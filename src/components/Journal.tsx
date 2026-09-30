@@ -14,13 +14,13 @@ interface Entry {
   description: string
 }
 
-function buildEntries(pipeBatches: Batch[], sales: Sale[]): Entry[] {
+function buildEntries(pipeBatches: Batch[], sales: Sale[], numbers: Map<number, number>): Entry[] {
   const entries: Entry[] = []
   // Purchases stay in the journal after their batch is sold.
   for (const b of [...pipeBatches, ...sales.flatMap(s => s.sold)]) {
     const amt = formatAmount(b.totalCost)
     entries.push({
-      key: `p${b.id}`, order: b.id, sub: 0, dateMs: b.dateMs, type: 'Purchase',
+      key: `p${b.id}`, order: b.id, sub: 0, dateMs: b.dateMs, type: `Purchase (Batch ${numbers.get(b.id)})`,
       debit: 'Inventory',
       credit: b.payment === 'credit' ? 'Trade Payables' : 'Cash at bank',
       amount: amt,
@@ -35,7 +35,7 @@ function buildEntries(pipeBatches: Batch[], sales: Sale[]): Entry[] {
       debit: 'Cash at bank', credit: 'Sales Revenue', amount: formatAmount(s.price),
       description: `Sold ${s.units} units for $${formatAmount(s.price)}.`,
     })
-    const parts = s.sold.map(b => `${formatDate(b.dateMs)} batch $${formatAmount(b.totalCost)}`)
+    const parts = s.sold.map(b => `Batch ${numbers.get(b.id)} (${formatDate(b.dateMs)}) $${formatAmount(b.totalCost)}`)
     const detail = s.sold.length === 1
       ? `${parts[0]}.`
       : `${parts.join(' + ')} = $${formatAmount(s.cost)}.`
@@ -48,8 +48,8 @@ function buildEntries(pipeBatches: Batch[], sales: Sale[]): Entry[] {
   return entries.sort((a, b) => a.order - b.order || a.sub - b.sub)
 }
 
-export function Journal({ batches, sales }: { batches: Batch[]; sales: Sale[] }) {
-  const entries = buildEntries(batches, sales)
+export function Journal({ batches, sales, numbers }: { batches: Batch[]; sales: Sale[]; numbers: Map<number, number> }) {
+  const entries = buildEntries(batches, sales, numbers)
   return (
     <Panel title="Journal entries">
       {entries.length === 0 ? (
