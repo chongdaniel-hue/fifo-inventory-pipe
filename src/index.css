@@ -1,0 +1,32 @@
+@import 'tailwindcss' source(none);
+@source './**/*.{ts,tsx}';
+
+@theme {
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --color-page: #fafaf7;
+  --color-line: #c8c8c8;
+  --color-ink: #111111;
+  --color-add: #1d4ed8;
+  --color-sell: #b91c1c;
+  --color-batch: #cbd5e1;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  background: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+}
