@@ -131,6 +131,9 @@ Sits above Journal entries, in the right-hand column on desktop and in the phone
 
 ### Journal entries (panel)
 - Heading: **Journal entries**
+- **Hidden by default**, so students write their own entries on the worksheet first. While hidden, the panel shows only its heading, an outlined button **"Show journal entries"**, and one line under it: "Write your journal entries on your worksheet first, then tap to check."
+- Tapping the button shows the entries and the button changes to **"Hide journal entries"**. Tapping it again hides them. Entries are recorded the whole time, so ones added while the panel is closed are there when it is opened, and new ones appear as usual while it is open.
+- Reset everything closes the panel again. The Summary is not affected and stays visible.
 - Empty text: "Journal entries appear here when you add a purchase or make a sale."
 - Entries are listed in the order recorded, oldest at the top. The panel grows to fit every entry (no inner scroll box), so one screenshot shows everything.
 - Each entry is a small exam-style journal:
@@ -170,6 +173,11 @@ Sits above Journal entries, in the right-hand column on desktop and in the phone
 15. Batch numbers, removal: add three batches and remove Batch 2 with ✕. The old Batch 3 becomes Batch 2, in the pipe and in its journal entry. Also, after Batches 1 and 2 are sold, remove Batch 3 and add a purchase: it is Batch 3 (the sold ones still count).
 16. Batch numbers, reset: after Reset everything (confirm), the first purchase is Batch 1.
 17. The batch block with a number still fits at 375px: no overlap with the ✕ button or the "Oldest" badge, and no horizontal scroll.
+18. Journal hidden by default: on a fresh page the Journal entries panel shows only the heading, the "Show journal entries" button and the worksheet line, with no entries and no empty-state text, even after purchases and sales are recorded. The Summary is visible throughout.
+19. Journal opens and closes: "Show journal entries" opens it and the button reads "Hide journal entries"; tapping again closes it and the button reads "Show journal entries" again.
+20. Entries recorded while the panel is closed (a purchase and a sale) are all there, in order, when it is opened. A purchase added while it is open appears straight away.
+21. Reset everything (confirm) hides the panel again, and the next purchase's entry stays hidden until the button is tapped. Cancel on the reset box leaves the panel as it was.
+22. The hidden and the open panel both fit at 375px, 768px and 1280px with no horizontal scroll, and the phone order is unchanged (How it works, Add a purchase, Pipe, Make a sale, Summary, Journal entries).
 
 ## 6. Updating the live page later
 

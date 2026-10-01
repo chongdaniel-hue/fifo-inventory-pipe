@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Panel } from './Panel'
 import { formatAmount, formatDate } from '../lib/format'
 import type { Batch, Sale } from '../types'
@@ -49,13 +50,24 @@ function buildEntries(pipeBatches: Batch[], sales: Sale[], numbers: Map<number, 
 }
 
 export function Journal({ batches, sales, numbers }: { batches: Batch[]; sales: Sale[]; numbers: Map<number, number> }) {
+  const [open, setOpen] = useState(false) // App remounts this on Reset everything, which closes it
   const entries = buildEntries(batches, sales, numbers)
   return (
     <Panel title="Journal entries">
-      {entries.length === 0 ? (
-        <p>Journal entries appear here when you add a purchase or make a sale.</p>
+      <div className="flex gap-3">
+        <button
+          type="button"
+          onClick={() => setOpen(o => !o)}
+          className="rounded-md border-2 border-ink bg-white px-4 py-2.5 font-semibold"
+        >
+          {open ? 'Hide journal entries' : 'Show journal entries'}
+        </button>
+      </div>
+      <p className="mt-3">Write your journal entries on your worksheet first, then tap to check.</p>
+      {open && (entries.length === 0 ? (
+        <p className="mt-6">Journal entries appear here when you add a purchase or make a sale.</p>
       ) : (
-        <div className="flex flex-col gap-6">
+        <div className="mt-6 flex flex-col gap-6">
           {entries.map(e => (
             <article key={e.key}>
               <h3 className="mb-2 font-bold">{formatDate(e.dateMs)} · {e.type}</h3>
@@ -84,7 +96,7 @@ export function Journal({ batches, sales, numbers }: { batches: Batch[]; sales: 
             </article>
           ))}
         </div>
-      )}
+      ))}
     </Panel>
   )
 }

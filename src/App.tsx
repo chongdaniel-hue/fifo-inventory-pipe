@@ -94,7 +94,7 @@ export default function App() {
         </div>
         <div className="contents lg:flex lg:flex-col lg:gap-12">
           <div className="order-4 lg:order-none"><Summary batches={batches} sales={sales} /></div>
-          <div className="order-5 lg:order-none"><Journal batches={batches} sales={sales} numbers={numbers} /></div>
+          <div className="order-5 lg:order-none"><Journal key={resetCount} batches={batches} sales={sales} numbers={numbers} /></div>
         </div>
       </div>
     </div>
